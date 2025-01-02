@@ -1,33 +1,117 @@
 <style>
-    .search-btn {
-      background-color:#683193;
-      color: #fff;
-      border-radius: 25px;
-      padding: 0 1rem;
+  /* Navbar Base Styling */
+  .navbar {
+    background: #fff; /* White background */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+
+  /* Navbar Brand */
+  .navbar-brand {
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .navbar-brand:hover {
+    color: #ff8c00; /* Hover color for logo */
+  }
+
+  /* Navbar Toggler Icon */
+  .navbar-toggler-icon {
+    background-color: #333; /* Dark icon for mobile view */
+  }
+
+  /* Button Styles */
+  .btn {
+    background-color: #ff8c00;
+    color: #fff;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    border: none;
+  }
+
+  /* Hover effect for all buttons */
+  .btn:hover {
+    background-color: #f57c00;
+    transform: scale(1.05);
+  }
+
+  .search-btn i {
+    margin-right: 8px;
+  }
+
+  /* Search Input */
+  .search-inp {
+    border-radius: 25px;
+    padding: 10px 25px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    margin-right: 15px;
+    transition: all 0.3s ease;
+  }
+
+  .search-inp:focus {
+    border-color: #ff8c00;
+    box-shadow: 0 0 10px rgba(255, 140, 0, 0.6);
+  }
+
+  /* Navbar Links */
+  .navbar-nav .nav-link {
+    color: #333;
+    font-size: 1.1rem;
+    padding: 12px 18px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .navbar-nav .nav-link:hover {
+    color: #ff8c00;
+    background-color: rgba(255, 140, 0, 0.1);
+    border-radius: 5px;
+  }
+
+  .navbar-nav .nav-link b {
+    font-weight: 700;
+  }
+
+  /* Mobile View */
+  @media (max-width: 768px) {
+    .navbar-nav .nav-link {
+      padding: 10px 15px;
     }
-    .search-btn:hover {
-      background-color: #ac47fa;
-      color: #fff;
-    }
-    .search-btn i {
-      display: inline;
-      margin-right: 0.5rem;
-    }
-    .search-inp {
-      border-radius: 25px;
-      padding: 0.5rem 3rem;
-    }
-  </style>
+  }
+</style>
+
+
   <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
       <div class="container-fluid">
-          <a class="navbar-brand" href="/listings"><img  src="https://res.cloudinary.com/danoxgcb8/image/upload/v1698837544/wanderlust_DEV/namaste_1_scnrpm.png" width="41px" style="margin-right:12px; margin-bottom: 10px;" alt="logo"><b style="display: inline-block; color: #683193; font-size: 1.5rem; line-height: 1.2rem; margin-top: 20px; font-family:Arial, Helvetica, sans-serif;">&nbsp;Namaste Yatra</b></a>
-          <button class="navbar-toggler" 
-            type="button" 
-            data-bs-toggle="collapse" 
-            data-bs-target="#navbarNavAltMarkup" 
-          >
-          <span class="navbar-toggler-icon"></span>
+        <a class="navbar-brand" href="/listings">
+          <!-- Logo Image (Globe) -->
+          <img src="https://res.cloudinary.com/dqgcmqtot/image/upload/v1735815492/Untitled_logo_1_free-file_lhcnb9.jpg" width="50px" style="margin-right: 15px; margin-bottom: 5px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);" alt="globe-icon">
+          
+          <!-- Brand Name with Typography and Icon -->
+          <b style="font-size: 2rem; color: #2c3e50; font-family: 'Roboto', sans-serif; font-weight: 700; display: inline-block; line-height: 1.3rem; text-transform: uppercase; letter-spacing: 1px;">
+            <!-- Adjusted Icon Color to Match Logo -->
+            <i class="fas fa-map-marker-alt" style="font-size: 1.5rem; color: #2c3e50; margin-right: 8px;"></i> YAATRA
+          </b>
+        </a>
+        
+        <!-- Navbar Toggler for Mobile View -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" style="border-color: #2c3e50;">
+          <span class="navbar-toggler-icon" style="background-color: #2c3e50;"></span>
         </button>
+        
+        
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <!-- <div class="navbar-nav">
             <a class="nav-link" href="/listings">Explore</a>

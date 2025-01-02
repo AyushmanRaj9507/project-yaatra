@@ -1,5 +1,6 @@
 <% layout("/layouts/boilerplate") %>
     <style>
+
         .rounded-rect {
             background: white;
             border-radius: 10px;
@@ -19,6 +20,31 @@
 
         .flex-center.right {
             right: 0px;
+        }
+
+        .sidebar:hover {
+        transform: scale(1.05);
+        transition: transform 0.3s ease-in-out;
+        }
+
+        .sidebar {
+            transition: right 0.5s ease, box-shadow 0.3s ease;
+        }
+
+        .sidebar-toggle:hover {
+            background-color: #ff6600;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+        }
+
+        #map-container:hover iframe {
+            transform: scale(1.05); /* Slight zoom effect on hover */
+        }
+
+        .sidebar-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         /* .sidebar-content {
@@ -95,11 +121,62 @@
         width: 300px;
         height: 100%;
         } */
+        .stars {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .stars input {
+            display: none;
+        }
+
+        .stars label {
+            font-size: 40px;
+            color: #ccc;
+            cursor: pointer;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .stars input:checked ~ label {
+            color: gold;
+        }
+
+        .stars input:checked ~ label:hover,
+        .stars input:checked ~ label:hover ~ label {
+            color: gold;
+        }
+
+        .stars label:hover,
+        .stars label:hover ~ label {
+            color: gold;
+            transform: scale(1.2);
+        }
+
+        .stars input:checked {
+            transform: scale(1.1);
+        }
+
+        .stars label:active {
+            transform: scale(1.3);
+        }
+
+
 
         /*
         The sidebar styling has them "expanded" by default, we use CSS transforms to push them offscreen
         The toggleSidebar() function removes this class from the element in order to expand it.
         */
+        .sidebar {
+        transition: right 0.5s ease;
+        position: absolute;
+        top: 20px;
+        right: -200px; /* Initially hidden */
+        }
+
+        .sidebar-toggle:hover {
+            background-color: #ff6600;
+        }
         .left.collapsed {
             transform: translateX(-295px);
         }
@@ -155,89 +232,117 @@
 
             <% } %>
             <hr class="mt-3 mb-3">
-                    <!-- <div class="col-8 offset-2 mb-3" id="mapBox">
-            <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
-            <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
-            <h3>Where you'll be</h3> -->
+               
 
-            <div style=" position: relative; box-shadow: 10px 10px 10px rgba(0,0,0, 0.45);" id="map">
-                <!-- Right Sidebar -->
-                <div id="right" class="sidebar flex-center right collapsed">
-                    <div class="sidebar-content rounded-rect flex-center">
-                        <%= listing.location %>
-                            <div class="sidebar-toggle rounded-rect right" onclick="toggleSidebar('right')">
-                                &larr;
-                            </div>
+            <!-- Main Container for Map -->
+            <div style="position: relative; height: 400px; border-radius: 20px; overflow: hidden; box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);" id="map-container">
+    
+                <!-- Location Label on the Right -->
+                <div style="position: absolute; top: 20px; right: 20px; z-index: 10; background-color: rgba(255, 255, 255, 0.8); padding: 15px 20px; border-radius: 15px; font-size: 20px; font-weight: bold; color: #333; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); max-width: 250px; text-align: center; font-family: 'Roboto', sans-serif; transition: transform 0.3s ease;">
+                    📍 <%= listing.location %>
+                </div>
+                
+                <!-- Google Maps Embed -->
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.598586778919!2d144.95523101531588!3d-37.81720997975129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d5b33f1f51f%3A0x5045675218cefc0!2zMzcgQmFua3N0b3duLCBNb3JnYW5kIFZpY3RvcnksIFZpY3Rvcmlh!5e0!3m2!1sen!2sin!4v1584930745181!5m2!1sen!2sin" 
+                    width="100%" 
+                    height="300" 
+                    style="border: 0; border-radius: 20px 20px 0 0; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); transition: transform 0.3s ease-in-out;" 
+                    allowfullscreen="" 
+                    aria-hidden="false" 
+                    tabindex="0">
+                </iframe>
+                
+                <!-- Sidebar Section -->
+                <div id="right" class="sidebar flex-center right collapsed" style="position: absolute; top: 10px; right: -250px; background: rgba(255, 255, 255, 0.9); border-radius: 20px 10px 10px 20px; padding: 20px; box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2); transition: right 0.5s ease;">
+                    
+                    <!-- Sidebar Content: Location and Toggle -->
+                    <div class="sidebar-content flex-center" style="display: flex; flex-direction: column; align-items: center;">
+                        <!-- Location Text -->
+                        <p style="font-size: 18px; color: #333; font-family: 'Roboto', sans-serif; font-weight: 600; margin-bottom: 15px;">
+                            📍 <%= listing.location %>
+                        </p>
+                        
+                        <!-- Toggle Button with Animation -->
+                        <div class="sidebar-toggle rounded-rect right" onclick="toggleSidebar('right')" 
+                            style="cursor: pointer; background: #ff5733; color: white; border-radius: 50%; padding: 12px; font-size: 26px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); transition: background 0.3s ease-in-out;">
+                            &larr;
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-
-        <div class="col-8 offset-2 mb-3">
-
-            <% if(currUser) { %>
-                <hr />
-                <h4><i class="fa-regular fa-pen-to-square"></i> &nbsp;Leave a Review</h4>
-                <form action="/listings/<%= listing.id %>/reviews" method="post" novalidate class="needs-validation">
-
-                    <div class="mb-3 mt-3">
-                        <label for="rating" class="form-label">Rating</label>
-                        <fieldset class="starability-slot">
-                            <legend>First rating:</legend>
-                            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1"
-                                checked aria-label="No rating." />
-                            <input type="radio" id="first-rate1" name="review[rating]" value="1" />
-                            <label for="first-rate1" title="Terrible">1 star</label>
-                            <input type="radio" id="first-rate2" name="review[rating]" value="2" />
-                            <label for="first-rate2" title="Not good">2 stars</label>
-                            <input type="radio" id="first-rate3" name="review[rating]" value="3" />
-                            <label for="first-rate3" title="Average">3 stars</label>
-                            <input type="radio" id="first-rate4" name="review[rating]" value="4" />
-                            <label for="first-rate4" title="Very good">4 stars</label>
-                            <input type="radio" id="first-rate5" name="review[rating]" value="5" />
-                            <label for="first-rate5" title="Amazing">5 stars</label>
-                        </fieldset>
-                    </div>
-
-                    <div class="mb-3 mt-3">
-                        <label for="comment" class="form-label">Comments</label>
-                        <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control"
-                            required></textarea>
-                        <div class="invalid-feedback">Please add some comments for review</div>
-                    </div>
-                    <button class="btn btn-outline-dark">Submit</button>
-                </form>
-                <hr />
-            <% } %>
-            <% if(listing.reviews.length> 0) { %>
-                <div class="row">
-                    <p><b>All Reviews</b></p>
-                    <% for(review of listing.reviews){%>
-                        <div class="card  col-8 offset-2 ms-3 mb-3">
-                            <div class="card-body">
-                                <h5 class="card-title">@<%= review.author.username %>
-                                </h5>
-                                <p class="starability-result mb-2 card-text" data-rating="<%= review.rating %>">
-                                </p>
-                                <p class="card-text">
-                                    <%= review.comment %>
-                                </p>
-
+            
+            
+            <div class="col-8 offset-2 mb-3">
+                
+                <% if(currUser) { %>
+                    <hr />
+                    <h4><i class="fa-regular fa-pen-to-square"></i> &nbsp;Leave a Review</h4>
+                    <form action="/listings/<%= listing.id %>/reviews" method="post" novalidate class="needs-validation">
+                        <div class="mb-3 mt-3">
+                            <label for="rating" class="form-label">Rating</label>
+                            <div class="stars">
+                                <input type="radio" id="star1" name="review[rating]" value="1" />
+                                <label for="star1" title="Terrible">&#9733;</label>
+                        
+                                <input type="radio" id="star2" name="review[rating]" value="2" />
+                                <label for="star2" title="Not good">&#9733;</label>
+                        
+                                <input type="radio" id="star3" name="review[rating]" value="3" />
+                                <label for="star3" title="Average">&#9733;</label>
+                        
+                                <input type="radio" id="star4" name="review[rating]" value="4" />
+                                <label for="star4" title="Very good">&#9733;</label>
+                        
+                                <input type="radio" id="star5" name="review[rating]" value="5" />
+                                <label for="star5" title="Amazing">&#9733;</label>
                             </div>
-                            <% if(currUser) {%>
-                                <form class="mb-3" method="POST"
-                                    action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
-                                    <button class="btn btn-sm mt-2 btn-dark">Delete</button>
-                                </form>
-                            <% } %>
                         </div>
+                        
+                        
+                        
+                    
+                        <div class="mb-3 mt-3">
+                            <label for="comment" class="form-label">Comments</label>
+                            <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control"
+                                required></textarea>
+                            <div class="invalid-feedback">Please add some comments for review</div>
+                        </div>
+                    
+                        <button class="btn btn-outline-dark">Submit</button>
+                    </form>
+                    
+                    <hr />
+                <% } %>
+                <% if(listing.reviews.length> 0) { %>
+                    <div class="row">
+                        <p><b>All Reviews</b></p>
+                        <% for(review of listing.reviews){%>
+                            <div class="card  col-8 offset-2 ms-3 mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">@<%= review.author.username %>
+                                    </h5>
+                                    <p class="starability-result mb-2 card-text" data-rating="<%= review.rating %>">
+                                    </p>
+                                    <p class="card-text">
+                                        <%= review.comment %>
+                                    </p>
 
-                    <%}%>
-                </div>
-            <% } %>
+                                </div>
+                                <% if(currUser) {%>
+                                    <form class="mb-3" method="POST"
+                                        action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                                        <button class="btn btn-sm mt-2 btn-dark">Delete</button>
+                                    </form>
+                                <% } %>
+                            </div>
+
+                            <%}%>
+                    </div>
+                <% } %>
+            </div>
+
+            
         </div>
-
-        
         <!-- <script src="/js/map.js"></script> -->
     </body>
