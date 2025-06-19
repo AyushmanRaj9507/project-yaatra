@@ -1,0 +1,154 @@
+<% layout("layouts/boilerplate") %>
+
+<style>
+    body {
+        background: linear-gradient(to right, #eef2f3, #8e9eab);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .home-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 50px 15px;
+    }
+
+    .video-box video {
+        width: 100%;
+        max-width: 600px;
+        border-radius: 20px;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+    }
+
+    .text-box {
+        text-align: center;
+        color: #fff;
+        padding: 30px;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(6px);
+    }
+
+    .text-box h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #ffcc00;
+    }
+
+    .text-box p {
+        font-size: 1.2rem;
+        margin-top: 10px;
+        color: #f0f0f0;
+    }
+
+    .feature-list {
+        margin-top: 20px;
+        text-align: left;
+        padding-left: 0;
+        color: #fff;
+    }
+
+    .feature-list li {
+        padding: 10px 15px;
+        margin-bottom: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        border-left: 5px solid #ffcc00;
+        border-radius: 8px;
+        list-style: none;
+    }
+
+    .explore-btn {
+        margin-top: 30px;
+        font-size: 1.1rem;
+        padding: 12px 30px;
+        border-radius: 50px;
+        background-color: #ffcc00;
+        border: none;
+        color: black;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+    .explore-btn:hover {
+        background-color: #ffdb4d;
+        transform: scale(1.05);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    }
+
+    footer {
+        margin-top: 40px;
+        color: #f0f0f0;
+        text-align: center;
+    }
+
+    @media (max-width: 768px) {
+        .home-container {
+            flex-direction: column;
+        }
+
+        .video-box {
+            margin-bottom: 30px;
+        }
+    }
+</style>
+
+<div class="container home-container">
+    <div class="row align-items-center w-100">
+        <!-- 🎬 Left: Video -->
+        <div class="col-md-6 video-box d-flex justify-content-center">
+            <video autoplay muted loop playsinline>
+                <source src="/videos/logo-intro.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <!-- 📋 Right: Content -->
+        <div class="col-md-6 text-box">
+            <h1>Welcome to <span class="text-warning">Yaatra 🧭</span></h1>
+            <p>Find your next adventure and share your stories with the world.</p>
+
+            <ul class="feature-list">
+                <li>✅ Add & explore listings</li>
+                <li>✅ Leave helpful reviews</li>
+                <li>✅ Connect with travelers</li>
+                <li>✅ Discover budget-friendly places</li>
+            </ul>
+
+            <a href="/listings" class="explore-btn">🌍 Explore Listings</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    &copy; <%= new Date().getFullYear() %> Yaatra - Built with ❤️ by Ayushman
+</footer>
+
+
+<!-- <% layout("layouts/boilerplate") %>
+
+<div class="container text-center mt-5">
+    <h1 class="display-4 fw-bold text-primary">Welcome to <span class="text-warning">Yaatra 🧭</span></h1>
+    <p class="lead mt-3">Explore beautiful places, share your own, and leave reviews.</p>
+    
+    <div class="row mt-5">
+        <div class="col-md-6 mb-4">
+            <img src="https://source.unsplash.com/600x400/?travel,adventure" class="img-fluid rounded shadow" alt="Travel Image">
+        </div>
+        <div class="col-md-6 text-start">
+            <h2 class="mb-3">Why Yaatra?</h2>
+            <ul class="list-group list-group-flush fs-5">
+                <li class="list-group-item">✅ Add your own listings</li>
+                <li class="list-group-item">✅ Read and write reviews</li>
+                <li class="list-group-item">✅ Connect with travel enthusiasts</li>
+                <li class="list-group-item">✅ Book budget-friendly experiences</li>
+            </ul>
+            <a href="/listings" class="btn btn-dark btn-lg mt-4">Explore Listings</a>
+        </div>
+    </div>
+
+    <footer class="mt-5 text-muted">
+        &copy; <%= new Date().getFullYear() %> Yaatra - Built with ❤️ by Ayushman
+    </footer>
+</div> -->
