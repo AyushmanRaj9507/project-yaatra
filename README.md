@@ -23,6 +23,10 @@ Then use this:
 ```md
 ![Home Page](assets/home.png)
 
+## 🌍 Live Demo
+🔗 [Yaatra Live](https://project-yaatra-1.onrender.com)
+
+
 ⚙️ Technologies Used
 Node.js + Express
 
