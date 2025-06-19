@@ -108,10 +108,18 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render("error.ejs", { message });
 });
 
-// Start Server
-app.listen(8080, () => {
+app.listen(8080, async () => {
   console.log("server is listening to port 8080");
+
+  // ✅ dynamic import of open
+  const open = (await import('open')).default;
+  open("http://localhost:8080");
 });
+
+
+// app.listen(8080, () => {
+//   console.log("server is listening to port 8080");
+// });
 
 // if(process.env.NODE_ENV  != "production"){
 //     require('dotenv').config();
