@@ -1,16 +1,30 @@
+// const Joi = require('joi');
+
+// module.exports.listingSchema = Joi.object({
+//     listing: Joi.object({
+//         title: Joi.string().required(),
+//         description: Joi.string().required(), // Corrected the typo here
+//         location: Joi.string().required(),
+//         country: Joi.string().required(),
+//         price: Joi.number().required().min(0),
+//         image: Joi.string().allow("", null),
+//         category: Joi.allow(""),
+//     }).required(),
+// });
 const Joi = require('joi');
 
 module.exports.listingSchema = Joi.object({
-    listing: Joi.object({
-        title: Joi.string().required(),
-        description: Joi.string().required(), // Corrected the typo here
-        location: Joi.string().required(),
-        country: Joi.string().required(),
-        price: Joi.number().required().min(0),
-        image: Joi.string().allow("", null),
-        category: Joi.allow(""),
-    }).required(),
+  listing: Joi.object({
+    title: Joi.string().required(),
+    description: Joi.string().required(),
+    location: Joi.string().required(),
+    country: Joi.string().required(),
+    price: Joi.number().required().min(0),
+    image: Joi.any().optional(),
+    category: Joi.alternatives().try(Joi.string(), Joi.number()).optional()
+  }).required()
 });
+
 
 module.exports.reviewSchema = Joi.object({
     review: Joi.object({
